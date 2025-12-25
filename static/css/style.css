@@ -1,0 +1,99 @@
+/* Custom Cursor for Clean-up Mode */
+.cleanup-mode {
+    /* Embedding the SVG directly to prevent loading/path issues. 
+       Content: <svg ...><text ...>🧹</text></svg> */
+    cursor: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><text x="0" y="24" font-size="28">🧹</text></svg>') 4 4, auto !important;
+}
+
+/* Ensure interactive elements inside also use the broom if desired */
+.cleanup-mode a,
+.cleanup-mode button,
+.cleanup-mode input,
+.cleanup-mode select,
+.cleanup-mode label {
+    cursor: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><text x="0" y="24" font-size="28">🧹</text></svg>') 4 4, pointer !important;
+}
+
+/* Empty State Component - Refined to match User Design & Structure */
+.empty-state {
+    text-align: center;
+    padding: 6rem 1rem;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* User wants <div class="icon">🧹</div> structure. 
+   So we make .icon the green circle container itself. */
+.empty-state .icon {
+    background-color: #D1FAE5;
+    /* Light Green Circle */
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    font-size: 4rem;
+    /* Emoji size */
+    line-height: 1;
+    cursor: default;
+
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.empty-state h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 1rem;
+    letter-spacing: -0.025em;
+}
+
+.empty-state p {
+    color: #6B7280;
+    font-size: 1.125rem;
+    margin-bottom: 2.5rem;
+    max-width: 24rem;
+    line-height: 1.5;
+}
+
+.empty-state .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    background-color: #34D399;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s;
+    text-decoration: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.empty-state .btn:hover {
+    background-color: #10B981;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}

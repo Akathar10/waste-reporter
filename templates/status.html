@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-2xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="bg-white overflow-hidden shadow rounded-lg mb-8">
+        <div class="px-4 py-5 sm:p-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">🔍 Check Report Status</h2>
+            <form method="POST" class="flex gap-4">
+                <input type="text" name="report_id" placeholder="Enter Report ID" required
+                    class="flex-1 shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md p-2 border">
+                <button type="submit"
+                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    Check
+                </button>
+            </form>
+        </div>
+    </div>
+
+    {% if report %}
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                Report Details
+            </h3>
+        </div>
+        <div class="px-4 py-5 sm:p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Current Status</h4>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                        {% if report.status|lower == 'resolved' %} bg-green-100 text-green-800
+                        {% elif report.status|lower == 'in progress' %} bg-yellow-100 text-yellow-800
+                        {% else %} bg-red-100 text-red-800 {% endif %}">
+                        {{ report.status }}
+                    </span>
+
+                    <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider mt-6 mb-2">Location</h4>
+                    <p class="text-gray-900 font-medium mb-4"><i class="fas fa-map-marker-alt text-red-500 mr-2"></i>{{
+                        report.location_name }}</p>
+
+                    <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Description</h4>
+                    <p class="text-gray-900 bg-gray-50 p-3 rounded-md">{{ report.description }}</p>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Submitted Photo</h4>
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-200 rounded-lg overflow-hidden">
+                        <img src="{{ url_for('static', filename='uploads/' + report.image_path) }}"
+                            class="object-cover w-full h-48 rounded-md shadow-sm" alt="Waste photo">
+                    </div>
+                </div>
+            </div>
+
+            {% if report.cleanup_image_path %}
+            <div class="mt-8 pt-6 border-t border-gray-200">
+                <h4 class="text-lg font-bold text-green-800 mb-4 flex items-center">
+                    <i class="fas fa-check-circle mr-2"></i> Cleanup Proof
+                </h4>
+                <div class="aspect-w-16 aspect-h-9">
+                    <img src="{{ url_for('static', filename='uploads/' + report.cleanup_image_path) }}"
+                        class="object-cover w-full max-h-80 rounded-lg shadow-lg border-4 border-green-500"
+                        alt="Cleanup proof">
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
